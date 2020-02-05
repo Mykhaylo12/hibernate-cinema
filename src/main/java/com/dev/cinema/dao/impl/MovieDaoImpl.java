@@ -4,18 +4,13 @@ import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.util.HibernateUtil;
-
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class MovieDaoImpl implements MovieDao {
-    private static final Logger LOGGER = Logger.getLogger(MovieDaoImpl.class);
-
     @Override
     public Movie add(Movie movie) {
         Transaction transaction = null;
@@ -29,8 +24,7 @@ public class MovieDaoImpl implements MovieDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            LOGGER.error("Can't add movie to DB",e);
-            throw new RuntimeException("Can not movie entity", e);
+            throw new RuntimeException("Can't add movie to DB ", e);
         }
     }
 
@@ -42,8 +36,7 @@ public class MovieDaoImpl implements MovieDao {
             criteriaQuery.from(Movie.class);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            LOGGER.error("Can't get all movies from DB",e);
-            throw new RuntimeException("Error retrieving all movies ", e);
+            throw new RuntimeException("Can't get all movies from DB ", e);
         }
     }
 }

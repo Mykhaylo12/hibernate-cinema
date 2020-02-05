@@ -6,14 +6,11 @@ import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
 import javax.persistence.criteria.CriteriaQuery;
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 @Dao
 public class CinemaHallDaoImpl implements CinemaHallDao {
-    private static final Logger LOGGER = Logger.getLogger(CinemaHallDaoImpl.class);
-
     @Override
     public CinemaHall add(CinemaHall cinemaHall) {
         Transaction transaction = null;
@@ -27,8 +24,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            LOGGER.error("Can't add cinema hall to DB", e);
-            throw new RuntimeException();
+            throw new RuntimeException("Can't add cinema hall to DB", e);
         }
     }
 
@@ -40,8 +36,7 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             criteriaQuery.from(CinemaHall.class);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            LOGGER.error("Can't get all cinema halls", e);
-            throw new RuntimeException();
+            throw new RuntimeException("Can't get all cinema halls", e);
         }
     }
 }
