@@ -36,8 +36,7 @@ public class UserDaoImpl implements UserDao {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
             Root<User> root = cq.from(User.class);
-            Predicate predicateEmail = cb.equal(root.get("email"), email);
-            cq.select(root).where(cb.and(predicateEmail));
+            cq.select(root).where(cb.and(cb.equal(root.get("email"), email)));
             return session.createQuery(cq).uniqueResult();
         } catch (Exception e) {
             throw new RuntimeException("Can't find user by email" + e);
