@@ -52,7 +52,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public void update(ShoppingCart shoppingCart) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(shoppingCart);
             transaction.commit();
@@ -61,6 +61,21 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
                 transaction.rollback();
                 throw new RuntimeException("Can't update shopping cat in DB", e);
             }
+        }
+    }
+
+    @Override
+    public void clear(ShoppingCart shoppingCart) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.delete(shoppingCart);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new RuntimeException("Can't clear shopping cart", e);
         }
     }
 }
