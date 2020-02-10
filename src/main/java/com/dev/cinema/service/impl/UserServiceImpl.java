@@ -10,7 +10,7 @@ import com.dev.cinema.util.HashUtil;
 @Service
 public class UserServiceImpl implements UserService {
     @Inject
-    private static UserDao userDao;
+    private UserDao userDao;
 
     @Override
     public User add(User user) {

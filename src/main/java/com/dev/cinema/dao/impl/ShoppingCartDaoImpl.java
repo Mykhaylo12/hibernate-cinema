@@ -52,7 +52,7 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public void update(ShoppingCart shoppingCart) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(shoppingCart);
             transaction.commit();
