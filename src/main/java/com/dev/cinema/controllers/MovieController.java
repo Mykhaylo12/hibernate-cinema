@@ -22,11 +22,15 @@ public class MovieController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody MovieRequestDto movieRequestDto) {
+    public MovieResponseDto add(@RequestBody MovieRequestDto movieRequestDto) {
         Movie movie = new Movie();
         movie.setTitle(movieRequestDto.getTitle());
         movie.setDescription(movieRequestDto.getDescription());
         movieService.add(movie);
+        MovieResponseDto movieResponseDto = new MovieResponseDto();
+        movieResponseDto.setDescription(movie.getDescription());
+        movieResponseDto.setTitle(movie.getTitle());
+        return movieResponseDto;
     }
 
     @GetMapping("/get")

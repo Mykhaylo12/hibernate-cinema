@@ -34,13 +34,18 @@ public class MovieSessionController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
+    public MovieSessionResponseDto add(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movieService.getById(movieSessionRequestDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.getById(movieSessionRequestDto
                 .getCinemaHallId()));
         movieSession.setShowTime(LocalDateTime.parse(movieSessionRequestDto.getShowTime()));
         movieSessionService.add(movieSession);
+        MovieSessionResponseDto movieSessionResponseDto = new MovieSessionResponseDto();
+        movieSessionResponseDto.setMovieId(movieSession.getMovie().getId());
+        movieSessionResponseDto.setCinemaHallId(movieSession.getCinemaHall().getId());
+        movieSessionResponseDto.setShowTime(movieSession.getShowTime().toString());
+        return movieSessionResponseDto;
     }
 
     @GetMapping("/available")
