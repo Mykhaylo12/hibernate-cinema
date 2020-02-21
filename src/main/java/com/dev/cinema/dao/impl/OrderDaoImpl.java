@@ -4,6 +4,8 @@ import com.dev.cinema.dao.OrderDao;
 import com.dev.cinema.model.Order;
 import com.dev.cinema.model.User;
 import java.util.List;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -39,6 +41,18 @@ public class OrderDaoImpl implements OrderDao {
                     .setParameter("user_id", user.getId()).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't get all orders from", e);
+        }
+    }
+
+    @Override
+    public List<Order> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaQuery<Order> criteriaQuery = session.getCriteriaBuilder()
+                    .createQuery(Order.class);
+            criteriaQuery.from(Order.class).fetch("tickets", JoinType.LEFT);
+            return session.createQuery(criteriaQuery).getResultList();
+        } catch (Exception e) {
+            throw new RuntimeException("Can't get all orders", e);
         }
     }
 }
