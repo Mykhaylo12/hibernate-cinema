@@ -37,7 +37,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getOrderHistory(User user) {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM orders WHERE user_id=:user_id", Order.class)
+            return session.createQuery("FROM orders WHERE id=:user_id", Order.class)
                     .setParameter("user_id", user.getId()).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't get all orders from", e);

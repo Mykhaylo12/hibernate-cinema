@@ -4,6 +4,7 @@ import com.dev.cinema.dao.MovieSessionDao;
 import com.dev.cinema.model.MovieSession;
 import java.time.LocalDate;
 import java.util.List;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
