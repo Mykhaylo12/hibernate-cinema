@@ -20,10 +20,12 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationService authenticationService;
-@GetMapping("/add")
+
+    @GetMapping("/add")
     public void addUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         authenticationService.register(userRequestDto.getEmail(), userRequestDto.getPassword());
     }
+
     @GetMapping("/findByEmail")
     public UserResponseDto getByEmail(@RequestParam String email) {
         User user = userService.findByEmail(email);

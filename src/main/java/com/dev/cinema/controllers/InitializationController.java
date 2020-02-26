@@ -1,6 +1,5 @@
 package com.dev.cinema.controllers;
 
-
 import com.dev.cinema.model.Role;
 import com.dev.cinema.model.User;
 import com.dev.cinema.service.RoleService;

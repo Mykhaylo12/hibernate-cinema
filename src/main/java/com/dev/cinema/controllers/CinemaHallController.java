@@ -21,7 +21,8 @@ public class CinemaHallController {
     private CinemaHallService cinemaHallService;
 
     @PostMapping("/add")
-    public CinemaHallResponseDto add(@Valid @RequestBody CinemaHallRequestDto cinemaHallRequestDto) {
+    public CinemaHallResponseDto add(@Valid @RequestBody CinemaHallRequestDto
+                                             cinemaHallRequestDto) {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setDescription(cinemaHallRequestDto.getDescription());
         cinemaHall.setCapacity(cinemaHallRequestDto.getCapacity());

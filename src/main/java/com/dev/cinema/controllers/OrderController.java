@@ -33,7 +33,8 @@ public class OrderController {
     public OrderResponseDto completeOrder(Principal principal) {
         User user = userService.findByEmail(principal.getName());
         OrderResponseDto orderResponseDto = new OrderResponseDto();
-        List<Ticket> list = shoppingCartService.getByUser(userService.getById(user.getId())).getTickets();
+        List<Ticket> list = shoppingCartService
+                .getByUser(userService.getById(user.getId())).getTickets();
         Order order = orderService.completeOrder(list, user);
         orderResponseDto.setOrderId(order.getId());
         orderResponseDto.setUserId(order.getUser().getId());

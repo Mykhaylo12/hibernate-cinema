@@ -1,12 +1,5 @@
 package com.dev.cinema.config;
 
-import com.dev.cinema.model.CinemaHall;
-import com.dev.cinema.model.Movie;
-import com.dev.cinema.model.MovieSession;
-import com.dev.cinema.model.Order;
-import com.dev.cinema.model.ShoppingCart;
-import com.dev.cinema.model.Ticket;
-import com.dev.cinema.model.User;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
@@ -50,6 +43,7 @@ public class AppConfig {
         localSessionFactoryBean.setPackagesToScan("com.dev.cinema.model");
         return localSessionFactoryBean;
     }
+
     @Bean
     public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();

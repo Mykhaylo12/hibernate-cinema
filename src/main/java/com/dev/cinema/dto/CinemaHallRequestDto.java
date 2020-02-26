@@ -1,7 +1,6 @@
 package com.dev.cinema.dto;
 
 import org.springframework.lang.NonNull;
-import javax.validation.constraints.Positive;
 
 public class CinemaHallRequestDto {
     @NonNull

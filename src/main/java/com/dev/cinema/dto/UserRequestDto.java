@@ -11,10 +11,10 @@ public class UserRequestDto {
     @EmailValidation
     private String email;
     @NotNull
-    @Size(min=3)
+    @Size(min = 3)
     private String password;
     @NotNull
-    @Size(min=3)
+    @Size(min = 3)
     private String repeatPassword;
 
     public Long getId() {
