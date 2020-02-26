@@ -1,7 +1,9 @@
 package com.dev.cinema.dto;
 
-public class CinemaHallRequestDto {
+import org.springframework.lang.NonNull;
 
+public class CinemaHallRequestDto {
+    @NonNull
     private int capacity;
     private String description;
 

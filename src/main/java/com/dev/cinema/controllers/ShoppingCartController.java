@@ -11,12 +11,14 @@ import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,22 +38,23 @@ public class ShoppingCartController {
         this.cinemaHallService = cinemaHallService;
     }
 
-    @GetMapping("/addmoviesession")
-    public void addMovieSession(@RequestBody MovieSessionRequestDto movieSessionRequestDto,
-                                @RequestParam("userId") Long userId) {
+    @PostMapping("/addmoviesession")
+    public String addMovieSession(@Valid @RequestBody MovieSessionRequestDto movieSessionRequestDto,
+                                Principal principal) {
         MovieSession movieSession = new MovieSession();
         movieSession.setMovie(movieService.getById(movieSessionRequestDto.getMovieId()));
         movieSession.setCinemaHall(cinemaHallService.getById(movieSessionRequestDto
                 .getCinemaHallId()));
         movieSession.setShowTime(LocalDateTime.parse(movieSessionRequestDto.getShowTime()));
-        User user = userService.getById(userId);
+        User user = userService.findByEmail(principal.getName());
         shoppingCartService.addSession(movieSession, user);
+        return "Success";
     }
 
     @GetMapping("/getbyuserid")
-    public ShoppingCartResponseDto getByUserId(@RequestParam Long userId) {
-        return transformToShoppingCartResponseDto(shoppingCartService.getByUser(userService
-                .getById(userId)));
+    public ShoppingCartResponseDto getByUserId(Principal principal) {
+        return transformToShoppingCartResponseDto(shoppingCartService
+                .getByUser(userService.findByEmail(principal.getName())));
     }
 
     private TicketResponseDto transformToTicketDto(Ticket ticket) {

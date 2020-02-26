@@ -10,17 +10,20 @@ import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
-    private OrderDao orderDao;
-    @Autowired
-    private ShoppingCartDao shoppingCartDao;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
+    private final OrderDao orderDao;
+    private final ShoppingCartDao shoppingCartDao;
+    private final ShoppingCartService shoppingCartService;
+
+    public OrderServiceImpl(OrderDao orderDao, ShoppingCartDao shoppingCartDao,
+                            ShoppingCartService shoppingCartService) {
+        this.orderDao = orderDao;
+        this.shoppingCartDao = shoppingCartDao;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {
