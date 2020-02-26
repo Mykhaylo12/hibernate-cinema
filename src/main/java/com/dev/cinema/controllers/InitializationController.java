@@ -35,7 +35,7 @@ public class InitializationController {
         roleService.add(adminRole);
 
         User user = new User();
-        user.setEmail("user@gmail.net");
+        user.setEmail("user@gmail.com");
         user.setPassword(passwordEncoder.encode("1234"));
 
         Role userRoleUser = roleService.getRoleByName("USER");
@@ -43,7 +43,7 @@ public class InitializationController {
         userService.add(user);
 
         User admin = new User();
-        admin.setEmail("admin@gmail.net");
+        admin.setEmail("admin@gmail.com");
         admin.setPassword(passwordEncoder.encode("1234"));
         Role userRoleAdmin = roleService.getRoleByName("ADMIN");
         admin.addRole(userRoleAdmin);

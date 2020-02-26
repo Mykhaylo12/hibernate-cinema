@@ -41,7 +41,7 @@ public class OrderController {
         return orderResponseDto;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/user")
     public List<OrderResponseDto> getOrderHistory(Principal principal) {
         User user = userService.findByEmail(principal.getName());
         return orderService.getOrderHistory(user)
@@ -50,7 +50,7 @@ public class OrderController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/allorders")
+    @GetMapping
     public List<OrderResponseDto> getAll() {
         return orderService.getAll()
                 .stream()
