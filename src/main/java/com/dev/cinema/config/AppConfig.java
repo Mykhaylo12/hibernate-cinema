@@ -3,7 +3,6 @@ package com.dev.cinema.config;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(basePackages
         = {"com.dev.cinema.service", "com.dev.cinema.dao", "com.dev.cinema.security"})
 public class AppConfig {
-    @Autowired
-    private Environment environment;
+    private final Environment environment;
+
+    public AppConfig(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public DataSource getDataSource() {

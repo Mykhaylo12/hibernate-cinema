@@ -5,18 +5,22 @@ import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import javax.naming.AuthenticationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ShoppingCartService shoppingCartService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
+    private final PasswordEncoder passwordEncoder;
+
+    public AuthenticationServiceImpl(UserService userService,
+                                     ShoppingCartService shoppingCartService,
+                                     PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
