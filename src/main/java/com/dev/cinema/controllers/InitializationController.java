@@ -38,14 +38,15 @@ public class InitializationController {
         user.setEmail("user@gmail.net");
         user.setPassword(passwordEncoder.encode("1234"));
 
-        Role userRoleTest = roleService.getRoleByName("USER");
-        user.addRole(userRoleTest);
+        Role userRoleUser = roleService.getRoleByName("USER");
+        user.addRole(userRoleUser);
         userService.add(user);
 
         User admin = new User();
         admin.setEmail("admin@gmail.net");
         admin.setPassword(passwordEncoder.encode("1234"));
-        admin.addRole(adminRole);
+        Role userRoleAdmin = roleService.getRoleByName("ADMIN");
+        admin.addRole(userRoleAdmin);
         userService.add(admin);
     }
 }
