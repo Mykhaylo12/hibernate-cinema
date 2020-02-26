@@ -4,6 +4,7 @@ import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.model.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -33,16 +34,29 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+
+    //    public User findByEmail(String email) {
+//        try (Session session = sessionFactory.openSession()) {
+//            CriteriaBuilder cb = session.getCriteriaBuilder();
+//            CriteriaQuery<User> cq = cb.createQuery(User.class);
+//            Root<User> root = cq.from(User.class);
+//            cq.select(root).where(cb.and(cb.equal(root.get("email"), email)));
+//            return session.createQuery(cq).uniqueResult();
+//        } catch (Exception e) {
+//            throw new RuntimeException("Can't find user by email" + e);
+//        }
+//    }
     @Override
     public User findByEmail(String email) {
         try (Session session = sessionFactory.openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<User> cq = cb.createQuery(User.class);
             Root<User> root = cq.from(User.class);
-            cq.select(root).where(cb.and(cb.equal(root.get("email"), email)));
+            root.fetch("role", JoinType.LEFT);
+            cq.select(root).where(cb.equal(root.get("email"), email));
             return session.createQuery(cq).uniqueResult();
         } catch (Exception e) {
-            throw new RuntimeException("Can't find user by email" + e);
+            throw new RuntimeException();
         }
     }
 

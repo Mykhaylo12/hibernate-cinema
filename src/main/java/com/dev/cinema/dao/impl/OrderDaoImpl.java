@@ -40,7 +40,7 @@ public class OrderDaoImpl implements OrderDao {
             return session.createQuery("FROM orders WHERE id=:user_id", Order.class)
                     .setParameter("user_id", user.getId()).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't get all orders from", e);
+            throw new RuntimeException("Can't get all orders from DB", e);
         }
     }
 
